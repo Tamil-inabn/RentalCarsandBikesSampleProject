@@ -1,0 +1,18 @@
+﻿namespace RentalCarsandBikes.Models
+{
+    public class UserVehicleViewPL
+    {
+        public int VehicleId { get; set; }
+
+        public string? VehicleNo { get; set; }
+
+        public string? VehicleName { get; set; }
+
+        public string? VehicleType { get; set; }
+
+        public string? VehiclePhoto { get; set; }
+        public int? NoOfVehicle { get; set; }
+        public bool? IsActive { get; set; }
+        public int? AdminId { get; set; }
+    }
+}

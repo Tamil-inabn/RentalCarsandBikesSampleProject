@@ -1,0 +1,81 @@
+﻿@model List<RentalCarsandBikes.Models.UserListViewPL>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .fa {
+        display: inline-block;
+        font: normal normal normal 25px/1 FontAwesome;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+</style>
+
+<i class="fa fa-arrow-circle-o-left" aria-hidden="true" onclick='window.location="@Url.ActionLink("Index","Admin")";'>Back</i>
+
+<table class="table align-middle mb-0 bg-white" style="    position: absolute;top: 73px;width: 100%;max-width: 100%;margin-bottom: 20px;">
+    <thead class="bg-light">
+        <tr>
+            <th>UserId</th>
+            <th>PhotoName</th>
+            <th>UserName</th>
+            <th>MobileNo</th>
+            <th>EmailId</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody id="row">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserId</td>
+                <td>
+                    <img src="~/Photo/@item.PhotoName" style="width: 45px; height: 45px" class="rounded-circle" />
+                </td>
+                <td>@item.UserName</td>
+                <td>@item.MobileNo</td>
+                <td>@item.EmailId</td>
+                <td>
+                    <input type="button" class="btn btn-danger" onclick="Delete('@item.UserId')" value="Delete" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    
+    function Delete(id) {
+        $.ajax({
+            type: "post",
+            url: "/Admin/Delete/",
+            datatype: "json",
+            data: { "id": id },
+            success: function (e) {
+                alert(e.msg);
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    }
+    //
+    function Details(id) {
+        $.ajax({
+            type: "post",
+            url: "/Admin/UserDetails/",
+            datatype: "json",
+            data: { "id": id },
+            success: function () {
+                alert("list");
+            }
+        });
+    }
+    
+</script>

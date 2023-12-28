@@ -1,0 +1,289 @@
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<style>
+
+
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        max-width: 300px;
+        min-height: 250px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 3px;
+        box-sizing: border-box;
+        color: black;
+        margin: 20px;
+        box-shadow: rgb(50 50 93 / 25%) 0px 30px 60px -12px, rgb(0 0 0 / 30%) 0px 18px 36px -18px;
+        margin-bottom: 5%;
+    }
+
+        .card:nth-child(2) {
+            background: #fff;
+        }
+
+        .card:last-child {
+            background: #fff;
+        }
+
+    .card-title {
+        margin-top: 0;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+    }
+
+    .card-content {
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        line-height: 1.5;
+    }
+
+    .card-btn {
+        all: unset;
+        display: block;
+        margin-left: auto;
+        border: 2px solid black;
+        padding: 10px 15px;
+        border-radius: 25px;
+        font-size: 10px;
+        font-weight: 600;
+        transition: all 0.5s;
+        cursor: pointer;
+        letter-spacing: 1.2px;
+    }
+
+        .card-btn:hover {
+            color: #fff;
+            background: black;
+        }
+
+    .card:nth-child(2) .card-btn:hover {
+        color: #fff;
+        background: black;
+    }
+
+    .card:last-child .card-btn:hover {
+        color: #fff;
+        background: black;
+    }
+
+</style>
+<div class="row">
+<div id="piechart" style="left: 205px;position: relative;top: 25px;"></div>
+</div>
+<br />
+<div class="row">
+<div class="container" id="hide">
+
+    <div class="wrapper" id="cards">
+
+        <div class="card">
+            <h3 class="card-title">Add Vehicle</h3>
+            <img src="~/logo/compact-car-icon-5.png" />
+            <input type="button" value="Click" class="card-btn" onclick='window.location = "@Url.Action("AddVehicle", "Admin")";' />
+        </div>
+
+        <div class="card">
+            <h3 class="card-title">Vehicle List</h3>
+            <img src="~/logo/55205.png" />
+            <input type="button" class="card-btn" id="VehicleList" value="Click" onclick='window.location="@Url.Action("AdminVehicleList","Admin")";' />
+        </div>
+
+        <div class="card">
+            <h3 class="card-title">User List</h3>
+            <img src="~/logo/33308.png" />
+            <input type="button" class="card-btn" id="UserList" value="Click" onclick='window.location="@Url.Action("UserList","Admin")";' />
+        </div>
+
+    </div>
+
+    <div class="wrapper" id="cards">
+
+        <div class="card">
+            <h3 class="card-title">Money Transaction List</h3>
+            <img src="~/logo/2201670.png" />
+            <input type="button" class="card-btn" id="bill" value="Click" />
+        </div>
+
+        <div class="card">
+            <h3 class="card-title">Booking List</h3>
+            <img src="~/logo/5110947.png" />
+            <input type="button" class="card-btn" value="Click" id="booking" />
+        </div>
+
+        <div class="card">
+            <h3 class="card-title">Comments</h3>
+            <img src="~/logo/3583833.png" />
+            <input type="button" class="card-btn" value="Click" />
+        </div>
+
+    </div>       
+</div>
+</div>
+<br />
+
+<div class="row">
+<div id="tableview">
+</div>
+</div>
+<br />
+
+<div class="row">
+<div id="userlist">
+</div>
+</div>
+<br />
+
+<div class="row">
+<div id="Datatable">
+    </div>
+</div>
+<br />
+
+
+<div id="paymentview">
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@{
+    var usercount = Context.Session.GetInt32("usercount");
+    var bookingcount = Context.Session.GetInt32("bookingcount");
+    var vehiclecount = Context.Session.GetInt32("vehiclecount");
+    var paymentcount = Context.Session.GetInt32("paymentcount");
+}
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['User Count', @usercount],
+            ['Booking Count', @bookingcount],
+            ['Vehicle Count', @vehiclecount],
+            ['Payment Count',@paymentcount]
+
+        ]);
+
+        var options = { 'width': 550, 'height': 400 };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+</script>
+
+<script>
+    //function PagerClick(index) {
+    //    document.getElementById("CurrentPageIndex").value = index;
+    //    document.forms[0].submit();
+    //}
+    ////
+    //$(document).ready(function () {
+
+    //    $("#myInput").on("keyup", function () {
+    //        var value = $(this).val().toLowerCase();
+    //        $("#myTable tr").filter(function () {
+    //            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    //        });
+    //    });
+    //});
+    //
+    $(document).ready(function () {        
+
+        $("#VehicleList").on('click', function () {
+            $.ajax({
+                url: "/Admin/AdminVehicleList",
+                type: "get",
+                datatype: "html",
+                success: function (data) {
+                    $("#tableview").html(data);
+                }
+            });
+        });
+        //
+        $("#UserList").on('click', function () {
+            $.ajax({
+                url: "Admin/UserList",
+                type: "get",
+                datatype: "html",
+                success: function (data) {
+                    $("#userlist").html(data);
+                }
+            });
+        });
+        //
+        $(document).on('click', '#booking', function () {
+       
+            $.ajax({
+                url: "/Admin/bookinglist",
+                type: "get",
+                datatype: "html",
+                success: function (data) {
+                    $("#footer").hide();
+                    $("#hide").hide();
+                    $("#piechart").hide();
+                    $("#Datatable").html(data);
+                }
+            });
+        });
+        //
+        $(document).on('click', '#bill', function () {
+
+            $.ajax({
+                url: "/Admin/Transaction",
+                type: "get",
+                datatype: "html",
+                success: function (data) {
+                    $("#footer").hide();
+                    $("#hide").hide();
+                    $("#piechart").hide();
+                    $("#paymentview").html(data);
+                }
+            });
+        });
+       
+    }); 
+    //
+    $(document).on('click', '.list', function () {       
+        var search = $(this).attr('data-id');
+        $.ajax({
+            url: "/Admin/bookinglist",
+            type: "GET",
+            data: { "currentPageIndex": search },
+            datatype: "html",
+            success: function (data) {
+                console.log(data);
+                $("#datalist").hide();
+                $("#Datatable").html(data);
+            }
+        });
+    });
+    //
+    $(document).on('click', '#searchbtn', function () {      
+        var data = $("#search").val();
+        var search=$(this).attr('data-id');
+        $.ajax({
+            url: "/Admin/bookinglist",
+            type: "GET",
+            data: { "text": data,
+                "currentPageIndex": search
+            },
+            datatype: "html",
+            success: function (data) {
+                console.log(data);
+                $("#datalist").hide();
+                $("#Datatable").html(data);
+            }
+        });
+    });    
+    
+</script>

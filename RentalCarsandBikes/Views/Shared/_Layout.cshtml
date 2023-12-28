@@ -1,0 +1,333 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RentalCarsandBikes</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RentalCarsandBikes.styles.css" asp-append-version="true" />
+@*
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+<style>
+    .color {
+        color: #ff471a;
+        font-family: 'Times New Roman';
+        font-weight: 200;
+    }
+
+    .navbar-nav {
+        display: flex:inline-block;
+        left: 150px;
+    }
+
+    .navbar {
+        position: sticky;
+    }
+
+    #footer {
+        position: sticky;
+    }
+
+    #logout {
+        transform: scale(1,1);
+        -ms-transform: scale(1,1);
+        -webkit-transform: scale(1,1);
+    }
+
+    #list li a {
+        text-decoration: none;
+    }
+
+        #list li a:hover {
+            text-decoration: underline;
+            font-size: 15px;
+            color: red;
+        }
+
+    #content, #Conditions, #Policies, #Contact {
+        padding: 5px;
+        text-align: center;
+        background-color: black;
+        border: solid 1px #c3c3c3;
+    }
+
+    #content, #Conditions, #Policies, #Contact {
+        padding: 50px;
+        display: none;
+    }
+</style>
+@{
+    var userid = Context.Session.GetInt32("id");
+    var url = "/User/userdata?userid=" + userid;
+}
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h4 class="color">Cars And Bikes Rental</h4>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav navbar-right col-lg-4">
+                    @if (Context.Session.GetString("name") != null)
+                    {
+                         <li class="nav-item active">
+                    <a class="nav-link" href="/Home/Index">
+                    Home<span class="sr-only" id="home" style="right:145px;position:absolute;"></span>
+                    </a>
+                    </li>
+                        <li class="nav-item active">
+                            <a href="@url" style="position: absolute;right: 240px;" id="user">
+                                @Context.Session.GetString("name")
+                            </a>                                
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Privacy">
+                            @if (Context.Session.GetString("name") != null)
+                            {
+
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-log-in" id="login">Login</span>
+                            }
+                            @if (Context.Session.GetString("name") != null)
+                            {
+                                <a class="nav-link " href="/Register/Logout" onclick="preventBack();">
+                                    <span class="glyphicon glyphicon-log-out" style="top: -28px" id="logout">Logout</span>
+                                </a>
+                            }
+                        </a>
+
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class=" glyphicon glyphicon-search form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bg-dark text-center text-white" style="font-family:'Times New Roman'" id="footer">
+        <div class="container p-3">
+
+            <div id="content">
+                <h4>Get to know about Us Rental Better</h4>
+                <hr />
+                We are Always to provide an outstanding bike and car rental service for our valued customers,
+                we are known for our exceptional attention to Automatic transmission cars for self drive and manual transmission cars for self drive,
+                ensuring that regardless of whether you’re a local or a tourist, you have a safe way to get around.
+                Everything we do is about giving you the freedom to discover more. Choose from our Saver,
+                Premium or Commercial rental car and bike service options to suit your Budget for self drive and space needs.
+                Contact us today to learn more about what would be best for you.
+            </div>
+
+            <div id="Conditions">
+                <h4>A General guide for use</h4>
+                <hr />
+                Terms of Use govern your use of this website and other services provided by GoBikes Automotive Private Limited (the “Services“).
+                These Terms of Use, together with our Privacy Policy, and Disclaimer and any other terms specifically referred to in any of those documents, constitute legally binding agreement (the “Agreement“) between You and GoBikes Automotive Private Limited in relation to your use of this website and services (together, the “Platform“).
+                By accepting the terms and conditions you will be legally bound to follow all the below mentioned terms and conditions during your relationship with GoBikes Automotive Private Limited.
+                Without your acceptance of the terms and conditions, GoBikes Automotive Private Limited shall not be able to give on Hire any bike.
+                If you disagree with any of the terms of this agreement, please refrain from hiring the bike.<br />
+                <h4>Use of the vehicle</h4>
+                <hr />
+                The User who approaches the Company for taking the Vehicle agrees to provide any personal information requested by the Company.
+                In particular, the User will be required to provide their <b>"First Name, Last Name, Age,Valid Mobile Number, Alternate Mobile Number, Residential Address, Office Address and Email Address"</b>.
+                Use of the Vehicle and the Service of the Company is limited to those over the age of 18 years at the time of registration.
+            </div>
+
+            <div id="Policies">
+                <h4>Privacy Policies</h4>
+                <hr />
+                1. The Vehicle must be returned no later than the end time of the booking and the User is required to terminate the booking.If the User returns the bike beyond the time specified in the booking form he shall be charged three day's rental as penalty.Late return would be charged at ₹50/hour(Scooty), ₹100/hour(Bikes) in addition to the hourly fee for use of the vehicle.<br />
+
+                2.In case of minor damages to the helmet, the customer is liable to pay a fine.<br />
+
+                3.In case of damage to the two-wheeler on rent due to accident/mishandling/carelessness, appropriate charges will be calculated and the customer is liable to pay the same along with the daily tariff until the bike is ready for renting again.<br />
+
+                4.In case of theft, the customer is liable to pay, in full, the market rate of the two-wheeler.<br />
+
+                5.In case of engine fault or failure, the customer needs to contact the customer care or Field Executive before getting any repairs done.The original printed invoice is mandatory to claim reimbursement for the same.<br />
+
+                6.For any cancellation or refund, it takes 7-10 business days for the refunded amount to reflect in your bank account.
+            </div>
+
+            <div id="Contact">
+                <h4>Contact With Us</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/twitter (2).png" height="50" width="50" /><p>Twitter</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/instagram.png" height="50" width="50" /><p>Instagram</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/facebook.png" height="50" width="50" /><p>Facebook</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/linkedin.png" height="50" width="50" /><p>Linkedin</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/gmail.png" height="50" width="50" /><p>Gmail</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/whatsapp.png" height="50" width="50" /><p>Whatsapp</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/playstore.png" height="50" width="50" /><p>Playstore</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/telegram.png" height="50" width="50" /><p>Telegram</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <section class="mb-4">
+                <p>
+                    We are here for you, to provide you with self-drive cars and bikes. You can rent a car or bike for long travels,
+                    hill drives, chilling around with loved ones, business needs and lot more.
+                    Simply said we have ride for all of us.
+                    We as a team are working towards the most luxurious and ecological ways for all of us to travel.
+                </p>
+            </section>
+            <section class="">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Company</h5>
+                        <ul class="list-unstyled mb-0" id="list">
+                            <li>
+                                <input type="button" class="btn btn-outline-primary text-white" id="about" value="about" />
+                            </li>
+                            <li>
+                                <input type="button" class="btn btn-outline-primary text-white" id="tac" value="Terms And Conditions" />
+                            </li>
+                            <li>
+                                <input type="button" class="btn btn-outline-primary text-white" id="pp" value="Privacy Policies" />
+                            </li>
+                            <li>
+                                <input type="button" class="btn btn-outline-primary text-white" id="cws" value="Contact With Us" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">User Count</h5>                        
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="/logo/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug.png" class="rounded-circle" height="100" width="100" />
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Booking Count</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/images (1).jfif" class="rounded-circle" height="100" width="100" />
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Rating</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <img src="~/logo/images (2).png" class="rounded-circle" height="100" width="100" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <hr />
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <b> ©Copyright:carsandbikesrental@gmail.com</b>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+<script>
+    $(document).ready(function () {
+
+
+        $("#about").click(function () {
+            $("#content").slideToggle();
+        });
+        //
+        $("#tac").click(function () {
+            $("#Conditions").slideToggle();
+        });
+        //
+        $("#pp").click(function () {
+            $("#Policies").slideToggle();
+        });
+        //
+        $("#cws").click(function () {
+            $("#Contact").slideToggle();
+        });
+    });
+    //
+    function preventBack() { window.history.forward(); }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () { null };
+</script>

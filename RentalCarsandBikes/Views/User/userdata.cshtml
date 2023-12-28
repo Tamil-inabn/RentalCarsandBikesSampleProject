@@ -1,0 +1,247 @@
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+@model BAL.ViewModel.UserListViewBAL
+
+<style>
+    body {
+        background: rgb(99, 39, 120)
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
+
+        .profile-button:hover {
+            background: #682773
+        }
+
+        .profile-button:focus {
+            background: #682773;
+            box-shadow: none
+        }
+
+        .profile-button:active {
+            background: #682773;
+            box-shadow: none
+        }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+
+    .labels {
+        font-size: 11px
+    }
+
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8
+    }
+    /*Profile Pic Start*/
+    .picture-container {
+        position: relative;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .picture {
+        width: 106px;
+        height: 106px;
+        background-color: #999999;
+        border: 4px solid #CCCCCC;
+        color: #FFFFFF;
+        border-radius: 50%;
+        margin: 0px auto;
+        overflow: hidden;
+        transition: all 0.2s;
+        -webkit-transition: all 0.2s;
+    }
+
+        .picture:hover {
+            border-color: #2ca8ff;
+        }
+
+        .picture input[type="file"] {
+            cursor: pointer;
+            display: block;
+            height: 100%;
+            left: 0;
+            opacity: 0 !important;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+    .picture-src {
+        width: 100%;
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 25px/1 FontAwesome;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+</style>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <i class="fa fa-arrow-circle-o-left" aria-hidden="true" onclick='window.location="@Url.ActionLink("Index","User")";'>Back</i>
+    <div class="row">
+        <form enctype="multipart/form-data" asp-controller="User" asp-action="UserUpdateData" method="post">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <div class="picture-container">
+                        <div class="picture">
+                            <img src="~/Photo/@Model.PhotoName" class="picture-src" id="wizardPicturePreview" name="" title="">
+                            @Html.TextBoxFor(m=>m.PhotoName,new{type="file",name="PhotoName",id="wizard-picture"})
+                        </div>
+                        <h6 class="">Choose Picture</h6>
+                    </div>
+                    <span class="font-weight-bold">@Model.UserName</span>
+                    <span class="text-black-50">@Model.EmailId</span>
+                    <input type="hidden" name="UserId" value="@Model.UserId">
+                    <input type="hidden" name="PhotoNames" value="@Model.PhotoNames" />
+                    <input type="hidden" name="PhotoId" value="@Model.PhotoId" />
+                    <input type="hidden" name="IdProof1" value="@Model.IdProof1" />
+                    <input type="hidden" name="ProofNames" value="@Model.ProofNames" />
+                    <input type="hidden" name="RollId" value="@Model.RollId" />
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <label class="labels">Name</label>
+                            @Html.TextBoxFor(m=>m.UserName,new{@class="form-control",id="name"})
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Mobile Number</label>
+                            @Html.TextBoxFor(m=>m.MobileNo,new{@class="form-control",id="num"})
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label class="labels">Gender</label>
+                                <div>
+                                    @Html.RadioButtonFor(m=>m.Gender,"Male",new{id="radiobtn"})
+                                    @Html.LabelFor(m=>m.Gender,"Male")&nbsp;
+
+                                    @Html.RadioButtonFor(m=>m.Gender,"Female",new{id="radiobtn"})
+                                    @Html.LabelFor(m=>m.Gender,"Female")&nbsp;
+
+                                    @Html.RadioButtonFor(m=>m.Gender,"Others",new{id="radiobtn"})
+                                    @Html.LabelFor(m=>m.Gender,"Others")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Age</label>
+                            @Html.TextBoxFor(m=>m.Age,new{@class="form-control",type="number",id="age"})
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Email</label>
+                            @Html.TextBoxFor(m=>m.EmailId,new{@class="form-control",type="email",id="email"})
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Password</label>
+                            @Html.TextBoxFor(m=>m.Password,new{@class="form-control",id="myInput"})                           
+                            <input type="checkbox" onclick="myFunction()">Show Password
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label class="labels">State</label>
+                            <select class="form-control" id="statedrop" asp-for="State" value="@Model.State">
+                                @foreach (var item in ViewBag.state)
+                                {
+                                    <option value="@item.StateId">@item.StateName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">City</label>
+                            <select class="form-control" id="citydrop" asp-for="City" value="@Model.City">
+                                @foreach (var item in ViewBag.city)
+                                {
+                                    <option value="@item.CityId">@item.CityName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+       // $("#myInput").hide();
+        myFunction();
+       
+        $("#wizard-picture").change(function () {
+            readURL(this);
+        });
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    //City DropDown
+    $("#statedrop").on('change', function () {
+        $("#citydrop").empty();
+        $.ajax({
+            type: "post",
+            url: "/Register/GetCity",
+            datatype: "json",
+            data: { cityid: $("#statedrop").val() },
+            success: function (data) {
+                $("#citydrop").append('<option value>Select City</option>');
+                $.each(data, function (index, value) {
+                    $("#citydrop").append('<option value="' + value.cityId + '">' + value.cityName + '</option>');
+                });
+            }
+        });
+    });
+    //
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+

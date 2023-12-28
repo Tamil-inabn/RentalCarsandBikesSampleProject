@@ -1,0 +1,75 @@
+﻿@model BAL.ViewModel.BookingCancelViewBAL
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@{
+    var name = Context.Session.GetString("Name");
+    var vehicleName = Context.Session.GetString("vehiclename");
+    var userid = Context.Session.GetInt32("id");
+}
+<style>
+    #id {
+        position: absolute;
+        right: 25px;
+        top: 362px;
+        width:75px;
+    }
+
+    #reason {
+        resize: none;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-8 mb-4">
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h3 class="mb-0">Booking Cancel Details</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-outline mb-4">
+                        <input type="text" id="userid" name="UserId" class="form-control" value="@userid" disabled />
+                        <label class="form-label" for="form7Example3">User Id</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input type="text" id="name" name="UserName" class="form-control" value="@name" disabled />
+                        <label class="form-label" for="form7Example4">Name</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input type="email" id="vehiclename" name="VehicleName" class="form-control" value="@vehicleName" disabled />
+                        <label class="form-label" for="form7Example5">Vehicle Name</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <textarea class="form-control" name="Reason" id="reason"></textarea>
+                        <label class="form-label" for="form7Example7">Reason</label>
+                    </div>
+                    <input type="submit" class="btn btn-danger" value="oK" id="id" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#id").on('click', function () {
+        var data={
+            UserId: $("#userid").val(),
+            UserName: $("#name").val(),
+            VehicleName: $("#vehiclename").val(),
+            Reason: $("#reason").val(),
+        };
+        $.ajax({
+            url: "/User/OrderCancel",
+            type:"post",
+            data:data,
+            success:function(data){
+                window.location.href = '@Url.Action("Index","User")';
+            }
+        });
+    });
+</script>

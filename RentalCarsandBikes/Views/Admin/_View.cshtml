@@ -1,0 +1,75 @@
+﻿
+@model RentalCarsandBikes.Models.BookingListAdminViewPL
+
+
+<i class="fa fa-arrow-circle-o-left" aria-hidden="true" onclick='window.location="@Url.ActionLink("Index","Admin")";' style="top: 100px;position: absolute;">Back</i>
+
+
+<input class="form-control" type="search" name="text" id="search" placeholder="Search" aria-label="Search" style="width: 260px;position: absolute;right: 180px;top: 112px;">
+<button class="btn btn-outline-success" type="submit" id="searchbtn" style="position: absolute;right: 111px;top: 105px;">Search</button>
+
+
+<div class="container" style="top: 167px;position: absolute; left: 150px;">
+
+    <table class="table table-bordered" id="myTable" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th>BookingId</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>PickUp Date</th>
+                <th>Drop Date</th>
+                <th>Vehicle No</th>
+                <th>Vehicle Name</th>
+            </tr>
+        </thead>
+        <tbody id="datalist">
+            @foreach (UserList userlist in Model.userLists)
+            {
+                <tr>
+                    <td>@userlist.BookingId</td>
+                    <td>@userlist.Name</td>
+                    <td>@userlist.MobileNo</td>
+                    <td>@userlist.Email</td>
+                    <td>@userlist.PickUpDate</td>
+                    <td>@userlist.DropDate</td>
+                    <td>@userlist.VehicleNo</td>
+                    <td>@userlist.VehicleName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <form asp-controller="Admin" asp-action="bookinglist" method="get">
+        <table class="table table-bordered" style="width:15px;">
+            <tr>
+                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                {
+                    <td>
+                        @if (i != ViewBag.CurrentPageIndex)
+                        {
+                            <a class="list" id="value" data-id="@i" @*href="javascript:PagerClick(@i);"*@>@i</a>
+                        }
+                        else
+                        {
+                            <span>@i</span>
+                        }
+                    </td>
+                }
+            </tr>
+        </table>
+        <input type="hidden" id="CurrentPageIndex" name="currentPageIndex" />
+    </form>
+</div>
+
+
+
+@*<script type="text/javascript">
+   
+</script>
+
+<script>
+   
+
+</script>*@

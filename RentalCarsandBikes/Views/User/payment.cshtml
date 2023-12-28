@@ -1,0 +1,146 @@
+﻿@model BAL.ViewModel.PaymentViewBAL
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@{
+    var days = Context.Session.GetString("TotalDays");
+    var Amount = Context.Session.GetString("Amount");
+}
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <input type="hidden" id="uid" value="@Model.UserId" name="UserId" />
+                                <input type="hidden" id="bid" value="@Model.BookingId" name="BookingId" />
+                                <div class="form-outline">
+                                    <input type="text" id="name" name="Name" value="@Model.Name" class="form-control form-control-lg" />
+                                    <label class="form-label" for="Name">Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline">
+                                    <input type="text" id="no" value="@Model.MobileNo" name="MobileNo" class="form-control form-control-lg" />
+                                    <label class="form-label" for="lastName">Mobile No</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline datepicker w-100">
+                                    <input type="text" value="@Model.Email" class="form-control form-control-lg" name="Email" id="email" />
+                                    <label for="birthdayDate" class="form-label">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+
+                                <div class="form-outline">
+                                    <input type="text" value="@Model.VehicleName" id="vname" name="VehicleName" class="form-control form-control-lg" />
+                                    <label class="form-label" for="lastName">Vehicle Name</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    <input type="text" value="@Amount" id="amount" name="TransactionAmount" class="form-control form-control-lg" />
+                                    <label class="form-label" for="emailAddress">Transaction Amount</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+
+                                <div class="form-outline">
+                                    <input type="text" value="@days" id="days" name="TotalDays" class="form-control form-control-lg" />
+                                    <label class="form-label" for="phoneNumber">Total Days</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-2">
+                            <input class="btn btn-outline-primary" type="submit" id="btn" value="PayNow" />&nbsp;&nbsp;
+                            <button id="remove">
+                                @Html.ActionLink("Booking Cancel","CancelBooking","User",new{id=Model.BookingId})
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<style>
+
+    #remove {
+        position: absolute;
+        right: 145px;
+        top: 161px;
+    }
+
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+    }
+
+    .card-registration .select-arrow {
+        top: 13px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $("#footer").hide();
+    });
+    const myTimeout = setTimeout(btndisable, 50000);
+    function btndisable() {
+        //$("#remove").prop("disabled", true);
+        $("#remove").hide();
+    }
+    //
+    debugger;
+    $(document).on('click', '#btn', function () {
+
+        var paymentdetails = {
+            UserId: $("#uid").val(),
+            BookingId: $("#bid").val(),
+            Name: $("#name").val(),
+            MobileNo: $("#no").val(),
+            Email: $("#email").val(),
+            TransactionAmount: $("#amount").val(),
+            TotalDays: $("#days").val(),
+            VehicleName: $("#vname").val(),
+        };
+        debugger;
+        console.log(paymentdetails);
+        $.ajax({
+            url: "/User/Payment",
+            type: "post",
+            data: { "paymentdetails": paymentdetails },
+            datatype: "json",
+            success: function () {
+                
+            }
+        });
+    });
+</script>

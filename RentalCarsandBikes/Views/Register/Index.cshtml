@@ -1,0 +1,499 @@
+﻿@model RentalCarsandBikes.Models.RegisterViewPL
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+<style>
+    .myButton {
+        box-shadow: 3px 4px 0px 0px #ffffff;
+        background: linear-gradient(to bottom, #c7c7c7 5%, #ffffff 100%);
+        background-color: #c7c7c7;
+        border-radius: 15px;
+        border: 1px solid #ffffff;
+        display: inline-block;
+        cursor: pointer;
+        color: #040505;
+        font-family: Arial;
+        font-size: 17px;
+        padding: 7px 25px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #ffffff;
+    }
+
+        .myButton:hover {
+            background: linear-gradient(to bottom, #ffffff 5%, #c7c7c7 100%);
+            background-color: #ffffff;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+</style>
+
+
+<form enctype="multipart/form-data" method="post" asp-controller="Register" asp-action="UserRegister">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img src="/logo/pexels-avinash-patel-445399.jpg"
+                                 alt="Sample photo" class="img-fluid"
+                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; opacity:0.7" />
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black" style="font-family:'Times New Roman'">
+                                <h3 class="mb-5 text-uppercase text-center">registration form</h3>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m=>m.UserName,"Name")
+                                            @Html.TextBoxFor(m=>m.UserName,new{@class="form-control",id="nametxt"})
+                                            <label class="Error">
+                                                <span id="name"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m=>m.Age)
+                                            @Html.TextBoxFor(m=>m.Age,new{@class="form-control",id="agetxt",type="number"})
+                                            <label class="Error">
+                                                <span id="age"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4" align="center">
+                                    <h5>
+                                        <b>Gender</b>
+                                    </h5>
+                                    <div class="form-group" id="radiobtn">
+                                        @Html.RadioButtonFor(m=>m.Gender,"Male",new{id="radiobtn"})
+                                        @Html.LabelFor(m=>m.Gender,"Male")
+
+
+                                        @Html.RadioButtonFor(m=>m.Gender,"Female",new{id="radiobtn"})
+                                        @Html.LabelFor(m=>m.Gender,"Female")
+
+
+                                        @Html.RadioButtonFor(m=>m.Gender,"Others",new{id="radiobtn"})
+                                        @Html.LabelFor(m=>m.Gender,"Others")<br />
+
+                                        <label class="Error">
+                                            <span id="gender"></span>
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m=>m.State)
+                                            @Html.DropDownListFor(m=>m.State,new SelectList(string.Empty,"Value","Text"),"Select State",new{@class="form-control",id="statedrop"})
+                                            <label class="Error">
+                                                <span id="state"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m=>m.City)
+                                            @Html.DropDownListFor(m=>m.City,new SelectList(string.Empty,"Value","Text"),"Select City",new{@class="form-control",id="citydrop"})
+                                            <label class="Error">
+                                                <span id="city"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    @Html.LabelFor(m=>m.MobileNo,"Mobile Number")
+                                    @Html.TextBoxFor(m=>m.MobileNo,new{@class="form-control",id="mobilenotxt"})
+                                    <label class="Error">
+                                        <span id="mobile"></span>
+                                    </label>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    @Html.LabelFor(m=>m.EmailId,"Email Id")
+                                    @Html.TextBoxFor(m=>m.EmailId,new{@class="form-control",name="Email",id="emailtxt",type="email"})
+                                    <label class="Error">
+                                        <span id="email"></span>
+                                    </label>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    @Html.LabelFor(m=>m.Password)
+                                    @Html.TextBoxFor(m=>m.Password,new{@class="form-control",type="password",id="passwordtxt"})
+                                    <label class="Error">
+                                        <span id="pass"></span>
+                                    </label>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    @Html.LabelFor(m=>m.PhotoName,"Profile Photo")
+                                    @Html.TextBoxFor(m=>m.PhotoName,new{@class="form-control",type="file",id="phototxt",name="registerViewPL"})
+                                    <label class="Error">
+                                        <span id="photo"></span>
+                                    </label>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    @Html.LabelFor(m=>m.ProofName,"Document")
+                                    @Html.TextBoxFor(m=>m.ProofName,new{@class="form-control",type="file",id="prooftxt",name="registerViewPL"})
+                                    <label class="Error">
+                                        <span id="document"></span>
+                                    </label>
+                                </div>
+
+                                <div id="checkbox" align="center">
+                                    @Html.LabelFor(m=>m.Accept)
+                                    @Html.CheckBoxFor(m=>m.Accept,new{id="accepttxt"})
+                                    <label class="Error">
+                                        <span id="accept"></span>
+                                    </label>
+                                </div>
+                                <div class="d-flex justify-content-center pt-3">
+                                    <input type="submit" id="save" class="myButton" />&nbsp;&nbsp;
+                                    <input type="reset" class="btn btn-outline-warning" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        $(document).ready(function () {
+            Checkmail();
+        });
+
+        $("#save").on('click', function () {
+
+            if ($("#nametxt").val() == "" && $("#agetxt").val() == "" && $("#radiobtn").val() == "" && $("#statedrop").val() == "" && $("#citydrop").val() == "" && $("#mobilenotxt").val() == "" && $("#emailtxt").val() == "" && $("#passwordtxt").val() == "" && $("#phototxt").val() == "" && $("#prooftxt").val() == "") {
+                swal({
+                    title: "Error..!",
+                    text: "Please Enter All Fileds",
+                    icon: "error",
+                    button: "Back",
+                });
+                return false;
+            }
+            //Name
+            if ($("#nametxt").val() == "") {
+                $("#name").text("Enter Name").css('color', 'red');
+                $("#nametxt").css('border-color', 'red');
+                return false;
+            }
+            //Age
+            if ($("#agetxt").val() == "") {
+                $("#age").text("Enter Age Must").css('color', 'red');
+                $("#agetxt").css("border-color", 'red');
+                return false;
+            }
+            //
+            if ($('input[type=radio][name=Gender]:checked').length == 0) {
+                $("#gender").text("Select Atleast One option").css('color', 'red');
+                return false;
+            }
+            //State
+            if ($("#statedrop").val() == "") {
+                $("#state").text("Select One State").css('color', 'red');
+                $("#statedrop").css("border-color", 'red');
+                return false;
+            }
+            //City
+            if ($("#citydrop").val() == "") {
+                $("#city").text('Select City').css('color', 'red');
+                $("#citydrop").css('border-color', 'red');
+                return false;
+            }
+            //Mobile
+            if ($("#mobilenotxt").val() == "") {
+                $("#mobile").text('Enter mobileNo').css('color', 'red');
+                $("#mobilenotxt").css('border-color', 'red');
+                return false;
+            }
+            //Password
+            if ($("#passwordtxt").val() == "") {
+                $("#pass").text("Enter Password").css('color', 'red');
+                $("#passwordtxt").css('border-color', 'red');
+                return false;
+            }
+            //Photo
+            if ($("#phototxt").val() == "") {
+                $("#photo").text('Upload Profile Photo').css('color', 'red');
+                $("#phototxt").css('border-color', 'red');
+                return false;
+            }
+            //Document
+            if ($("#prooftxt").val() == "") {
+                $("#document").text("Upload Original Document Must").css('color', 'red');
+                $("#prooftxt").css('border-color', 'red');
+                return false;
+            }
+            //Check Box Validation
+            var checked = $("#checkbox input[type=checkbox]:checked").length;
+            if (checked > 0) {
+                return true;
+            }
+            else if (checked == 0) {
+                $("#accept").text("Click Check Box Must").css("color", "red");
+                return false;
+            }
+            else {
+                var formdata = new FormData();
+                formdata.append("UserName", $("#nametxt").val());
+                formdata.append("Age", $("#agetxt").val());
+                formdata.append("Gender", $("#radiobtn").val());
+                formdata.append("State", $("#statedrop").val());
+                formdata.append("City", $("#citydrop").val());
+                formdata.append("MobileNo", $("#mobilenotxt").val());
+                formdata.append("EmailId", $("#emailtxt").val());
+                formdata.append("Password", $("#passwordtxt").val());
+                formdata.append("PhotoName", $("#phototxt")[0].files[0]);
+                formdata.append("IdProof1", $("#prooftxt")[0].files[0]);
+                $.ajax({
+                    url: "/Register/UserRegister",
+                    post: "post",
+                    data: formdata,
+                    success: function (data) {
+                        $("#nametxt").val("");
+                        $("#agetxt").val("");
+                        $("#radiobtn").val("");
+                        $("#statedrop").val("");
+                        $("#citydrop").val("");
+                        $("#mobilenotxt").val("");
+                        $("#emailtxt").val("");
+                        $("#passwordtxt").val("");
+                        $("#phototxt").val("");
+                        $("#prooftxt").val("");
+                        $("#accepttxt").val("");
+                        swal({
+                            title: "Success..!",
+                            text: "Register Success",
+                            icon: "success",
+                            button: "Ok",
+                        });
+                    }
+                });
+            }
+            return true;
+        });
+        //State DropDown
+        $.ajax({
+            url: "/Register/GetState",
+            type: "get",
+            datatype: "json",
+            success: function (data) {
+                $.each(data, function (index, value) {
+                    $("#statedrop").append('<option value="' + value.stateId + '">' + value.stateName + '</option>');
+                });
+            }
+        });
+        //City DropDown
+        $("#statedrop").on('change', function () {
+            $("#citydrop").empty();
+            $.ajax({
+                type: "post",
+                url: "/Register/GetCity",
+                datatype: "json",
+                data: { cityid: $("#statedrop").val() },
+                success: function (data) {
+                    $("#citydrop").append('<option value>Select City</option>');
+                    $.each(data, function (index, value) {
+                        $("#citydrop").append('<option value="' + value.cityId + '">' + value.cityName + '</option>');
+                    });
+                }
+            });
+        });
+    });
+    //Text Validation
+    $('#nametxt').keypress(function (e) {
+        var regex = new RegExp(/^[a-zA-Z\s]+$/);
+        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (regex.test(str)) {
+            return true;
+        }
+        else {
+            e.preventDefault();
+            return false;
+        }
+    });
+    //Number Validation
+    $('#mobilenotxt,#agetxt').keypress(function (e) {
+        var charCode = (e.which) ? e.which : event.keyCode
+        if (String.fromCharCode(charCode).match(/[^0-9]/g))
+            return false;
+    });
+    //Copy Cut Past Validation
+    $('#nametxt,#mobilenotxt,#agetxt').on("cut copy paste", function (e) {
+        e.preventDefault();
+    });
+    //Email Validation
+    $("#emailtxt").change(function () {
+        var inputvalues = $(this).val();
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!regex.test(inputvalues)) {
+            swal("Oops..!", "Enter Email Id", "info");
+            $("#emailtxt").val("");
+            return regex.test(inputvalues);
+        }
+    });
+    //Check Email Validatiobn
+    function Checkmail() {
+        $("#emailtxt").on("change", function () {
+            var Email = $("#emailtxt").val();
+            $.ajax({
+                type: "get",
+                url: "/Register/CheckMail",
+                data: { "Email": Email },
+                datatype: "json",
+                success: function (data) {
+                    if (data == true) {
+                        $("#emailtxt").css('border-color', 'red');
+                        $("#email").text('Email is Already Exists').css('color', 'red');
+                        $("#emailtxt").val("");
+                        return false;
+                    } else if (data == false) {
+                        $("#emailtxt").css('border-color', 'green');
+                        $("#email").hide();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+        });
+    }
+    //Name
+    $("#nametxt").on('keyup', function (e) {
+        if ($("#nametxt").val() != "") {
+            $("#nametxt").css('border-color', 'green');
+            $("#name").hide();
+            return true;
+        } else {
+            $("#nametxt").css('border-color', 'red');
+            return false;
+        }
+    });
+    //Age
+    $("#agetxt").on('keyup', function (e) {
+        if ($("#agetxt").val() != "") {
+            $("#agetxt").css('border-color', 'green');
+            $("#age").hide();
+            return true;
+        }
+        else {
+            $("#agetxt").css('border-color', 'red');
+            return false;
+        }
+    });
+    //Gender
+    $("#radiobtn").on('select', function (e) {
+        if ($("#radiobtn").val() != "") {
+            $("#gender").hide();
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
+    //State
+    $("#statedrop").on("change", function (e) {
+        if ($("#statedrop").val() != "") {
+            $("#statedrop").css('border-color', 'green');
+            $("#state").hide();
+            return true;
+        }
+        else {
+            $("#statedrop").css('border-color', 'red');
+            return false;
+        }
+    });
+    //City
+    $("#citydrop").on("change", function (e) {
+        if ($("#citydrop").val() != "") {
+            $("#citydrop").css('border-color', 'green');
+            $("#city").hide();
+            return true;
+        }
+        else {
+            $("#citydrop").css('border-color', 'red');
+            return false;
+        }
+    });
+    //Mobile Number
+    $("#mobilenotxt").on("keypress", function (e) {
+        if ($("#mobilenotxt").val() != "") {
+            $("#mobilenotxt").css('border-color', 'green');
+            $("#mobile").hide();
+            return true;
+        }
+        else {
+            $("#mobilenotxt").css('border-color', 'red');
+            return true;
+        }
+    });
+    //Password
+    $("#passwordtxt").on('keyup', function (e) {
+        if ($("#passwordtxt").val() != "") {
+            $("#passwordtxt").css('border-color', 'green');
+            $("#pass").hide();
+            return true;
+        }
+        else {
+            $("#passwordtxt").css('border', 'red');
+            return false;
+        }
+    });
+    //Photo
+    $("#phototxt").on("change", function (e) {
+        if ($("#phototxt").val != "") {
+            $("#phototxt").css('border-color', 'green');
+            $("#photo").hide();
+            return true;
+        }
+        else {
+            $("#phototxt").css('boreder', 'red');
+            return false;
+        }
+    });
+    //Document
+    $("#prooftxt").on("change", function (e) {
+        if ($("#prooftxt").val != "") {
+            $("#prooftxt").css('border-color', 'green');
+            $("#document").hide();
+            return true;
+        }
+        else {
+            $("#prooftxt").css("border", "red");
+            return false;
+        }
+    });
+    //CheckBox
+    $("#accepttxt").on("click", function (e) {
+        if ($("#accepttxt").val() != "") {
+            $("#accept").hide();
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+</script>

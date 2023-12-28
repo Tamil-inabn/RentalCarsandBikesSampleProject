@@ -1,0 +1,77 @@
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+@model RentalCarsandBikes.Models.AddVehicleViewPL
+
+<style>
+    body {
+        background-image: url("/logo/pexels-mike-b-244206.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100px;
+    }
+
+    .id {
+        background: rgba( 255, 255, 255, 0.1 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 4.5px );
+        -webkit-backdrop-filter: blur( 4.5px );
+        border-radius: 10px;
+    }
+</style>
+
+
+<form enctype="multipart/form-data" method="post">
+    <div class="id" style="font-family:'Times New Roman'">
+        <section class="vh-100 ">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="text-black" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+
+                                <div class="mb-md-5 mt-md-4 pb-5">
+
+                                    <h2 class="fw-bold mb-2 text-uppercase">Add Vehicel</h2>     <br />
+
+                                    <div class="form-group form-white mb-4">
+                                        @Html.LabelFor(m=>m.VehicleNo,"Vechile Number")
+                                        @Html.TextBoxFor(m=>m.VehicleNo,new{@class="form-control",id="Notxt"})
+                                    </div>
+
+                                    <div class="form-group form-white mb-4">
+                                        @Html.LabelFor(m=>m.VehicleName,"Vechile Name")
+                                        @Html.TextBoxFor(m=>m.VehicleName,new{@class="form-control",id="Nametxt"})
+                                    </div>
+
+                                    <div class="form-group form-white mb-4">
+                                        @Html.LabelFor(m=>m.VehicleType,"Vechile Type")
+                                        @Html.TextBoxFor(m=>m.VehicleType,new{@class="form-control",id="Typetxt"})
+                                    </div>
+
+                                     <div class="form-group form-white mb-4">
+                                        @Html.LabelFor(m=>m.NoOfVehicle,"No Of Vehicle")
+                                        @Html.TextBoxFor(m=>m.NoOfVehicle,new{@class="form-control",id="Typetxt"})
+                                    </div>
+
+                                    <div class="form-group form-white mb-4">
+                                        @Html.LabelFor(m=>m.VehiclePhoto,"Vechile Photo")
+                                        @Html.TextBoxFor(m=>m.VehiclePhoto,new{@class="form-control",id="phototxt",type="file",name="vehicleDetailsPL"})
+                                    </div>
+                                    <input type="submit" class="btn btn-outline-light btn-lg px-5" id="save" asp-action="AddVehicle" asp-controller="Admin" />&nbsp;&nbsp;
+                                    <input type="submit" value="Back" class="btn btn-outline-light btn-lg px-5" asp-action="index" asp-controller="Admin" />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</form>
+
